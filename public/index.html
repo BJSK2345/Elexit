@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elexit AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="font-sans antialiased">
+  <div class="app">
+    <aside id="sidebar" class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">E</div>
+        <div>
+          <strong>Elexit</strong>
+          <span>AI Engineer</span>
+        </div>
+      </div>
+      <button id="newProjectBtn" class="new-btn" type="button">+ New project</button>
+      <div class="side-section">
+        <p class="side-label">Saved projects</p>
+        <div id="savedList" class="saved-list"></div>
+      </div>
+      <div class="side-footer">
+        <button class="side-link active" data-view="projects" type="button">Projects</button>
+        <button class="side-link" data-view="lab" type="button">Learn Lab</button>
+        <button class="side-link" data-view="settings" type="button">Settings</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="sidebarToggle" class="icon-btn" type="button" aria-label="Toggle sidebar">☰</button>
+        <div class="title">
+          <strong id="pageTitle">New project</strong>
+          <span id="pageMeta">Build something real</span>
+        </div>
+        <select id="modelSelect" class="select">
+          <option value="groq:openai/gpt-oss-120b">Groq GPT OSS 120B</option>
+          <option value="featherless:Qwen/Qwen2.5-72B-Instruct">Featherless Qwen 72B</option>
+          <option value="featherless:meta-llama/Llama-3.3-70B-Instruct">Featherless Llama 3.3</option>
+          <option value="groq:llama-3.3-70b-versatile">Groq Llama 3.3</option>
+          <option value="gemini:gemini-2.5-flash-lite">Gemini Lite</option>
+        </select>
+      </header>
+
+      <section id="projectsView" class="view active">
+        <div id="chat" class="chat">
+          <div class="message ai">What are we building?</div>
+        </div>
+        <form id="projectForm" class="composer">
+          <textarea id="requestInput" rows="1" placeholder="Type materials or a project idea..." required></textarea>
+          <button id="sendBtn" type="submit">Send</button>
+        </form>
+      </section>
+
+      <section id="instructionsView" class="view">
+        <div class="build-layout">
+          <div class="step-panel">
+            <button id="backBtn" class="ghost-btn" type="button">← Back</button>
+            <span id="stepBadge" class="step-badge">Step 1</span>
+            <h1 id="stepTitle">Step title</h1>
+            <p id="stepText"></p>
+            <div id="stepCheck" class="check"></div>
+            <div class="step-actions">
+              <button id="prevStep" class="round-btn" type="button">←</button>
+              <button id="nextStep" class="round-btn" type="button">→</button>
+            </div>
+          </div>
+          <div class="visual-panel">
+            <div class="visual-head">
+              <span id="projectPill">Project</span>
+              <button id="saveProjectBtn" class="save-btn" type="button">Save project</button>
+            </div>
+            <div id="imageStage" class="image-stage"></div>
+            <p id="stepTip" class="tip"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="materialsView" class="view">
+        <div class="materials-shell">
+          <div class="materials-card">
+            <button id="materialsBackBtn" class="ghost-btn" type="button">Back</button>
+            <span class="step-badge">Materials</span>
+            <h1 id="materialsTitle">Before you build</h1>
+            <p id="materialsSummary" class="muted"></p>
+            <div id="materialsList" class="materials-list"></div>
+            <div class="materials-footer">
+              <p class="muted">Check your supplies first. Press the green tick when you're ready for the AI steps.</p>
+              <button id="confirmMaterialsBtn" class="confirm-btn" type="button" aria-label="Confirm materials">
+                <span>✓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="labView" class="view">
+        <div class="page">
+          <h1>Learn Lab</h1>
+          <p class="muted">Saved projects appear here after you press Save project.</p>
+          <div id="labProjects" class="project-grid"></div>
+        </div>
+      </section>
+
+      <section id="settingsView" class="view">
+        <div class="page">
+          <h1>Settings</h1>
+          <div class="theme-grid">
+            <button data-theme="dark" type="button">Dark</button>
+            <button data-theme="light" type="button">Light</button>
+            <button data-theme="sunset" type="button">Sunset</button>
+            <button data-theme="sky" type="button">Sky</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
